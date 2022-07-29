@@ -20,6 +20,4 @@ public class SpringGitHubLoginApplication {
 		System.out.println(principal);
 		return principal.getAttribute("name");
 	}
-	
-
 }
