@@ -1,4 +1,4 @@
-package io.javabrains;
+package io.javabrains.inbox;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @Configuration
 public class SecurityAdapter extends WebSecurityConfigurerAdapter {
 
-    @Override
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
 		http
@@ -30,6 +30,6 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
 			)
 			.oauth2Login();
 		// @formatter:on
-    }
-    
+	}
+
 }
