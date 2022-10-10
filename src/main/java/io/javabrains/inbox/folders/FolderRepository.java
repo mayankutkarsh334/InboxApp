@@ -8,5 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FolderRepository extends CassandraRepository<Folder, String> {
 
+    /**
+     * @param id
+     * @return
+     */
     List<Folder> findAllById(String id);
 }
