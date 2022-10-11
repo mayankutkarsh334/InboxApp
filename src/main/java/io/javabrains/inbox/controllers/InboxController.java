@@ -1,13 +1,18 @@
 package io.javabrains.inbox.controllers;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import org.ocpsoft.prettytime.PrettyTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 
 import io.javabrains.inbox.emaillist.EmailListItem;
 import io.javabrains.inbox.emaillist.EmailListItemRepository;
@@ -44,6 +49,13 @@ public class InboxController {
         // Fetch messages
         String folderlabel = "Inbox";
         List<EmailListItem> emailList = emailListItemRepository.findAllByKey_IdAndKey_Label(userId, folderlabel);
+
+        PrettyTime p = new PrettyTime();
+        emailList.stream().forEach(emailItem -> {
+            UUID timeUuid = emailItem.getKey().getTiemUUID();
+            Date emailDateTime = new Date(Uuids.unixTimestamp(timeUuid));
+            emailItem.setAgoTimeString(p.format(emailDateTime));
+        });
         model.addAttribute("emailList", emailList);
 
         return "inbox-page";
