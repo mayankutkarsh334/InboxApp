@@ -33,9 +33,9 @@ public class InboxApp {
 
 	@PostConstruct
 	public void init() {
-		folderRepository.save(new Folder("koushikkothagal", "inbox", "blue"));
-		folderRepository.save(new Folder("koushikkothagal", "Sent", "green"));
-		folderRepository.save(new Folder("koushikkothagal", "Important", "yellow"));
+		folderRepository.save(new Folder("mayankutkarsh334", "inbox", "blue"));
+		folderRepository.save(new Folder("mayankutkarsh334", "Sent", "green"));
+		folderRepository.save(new Folder("mayankutkarsh334", "Important", "yellow"));
 		// for (int i = 0; i < 10; i++) {
 		// emailService.sendEmail("koushikkothagal", "koushikkothagal", "Test " + i,
 		// "Body " + i);
