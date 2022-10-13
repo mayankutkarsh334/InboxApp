@@ -56,7 +56,7 @@ public class InboxApp {
 
 			EmailListItem item = new EmailListItem();
 			item.setKey(key);
-			item.setTo(Arrays.asList("mayankutkarsh334"));
+			item.setTo(Arrays.asList("mayankutkarsh334", "abc", "def"));
 			item.setSubject("Subject " + i);
 			item.setUnread(true);
 

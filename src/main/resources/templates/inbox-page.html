@@ -71,11 +71,11 @@
         <main>
             <p>Email List</p>
             <div class="card" th:if="${emailList}">
-                <div class="card-header">Inbox</div>
+                <div class="card-header" th:text="${folderName}">Inbox</div>
                 <div class="card-body">
                     <div class="list-group">
                         <a th:each="message:${emailList}"
-                            href="#"
+                            th:href="@{'/emails/'+${message.key.timeUUID}}"
                             class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1"
