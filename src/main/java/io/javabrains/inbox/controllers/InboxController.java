@@ -21,6 +21,7 @@ import io.javabrains.inbox.emaillist.EmailListItemRepository;
 import io.javabrains.inbox.folders.Folder;
 import io.javabrains.inbox.folders.FolderRepository;
 import io.javabrains.inbox.folders.FolderService;
+import io.javabrains.inbox.folders.UnreadEmailStatsRepository;
 
 @Controller
 public class InboxController {
@@ -49,6 +50,7 @@ public class InboxController {
         model.addAttribute("userFolders", userFolders);
         List<Folder> defaultFolders = folderService.fetchDefaultFolders(userId);
         model.addAttribute("defaultFolders", defaultFolders);
+        model.addAttribute("stats", folderService.mapCountToLabels(userId));
 
         // Fetch messages
         if (!StringUtils.hasText(folder)) {
