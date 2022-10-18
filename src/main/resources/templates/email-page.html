@@ -18,6 +18,7 @@
 
         .container {
             display: grid;
+            margin-top: 20px;
 
             grid-template-areas:
                 "header header header"
@@ -47,13 +48,21 @@
         footer {
             grid-area: footer;
         }
+
+        .body-text {
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>Welcome, Name</h1>
+            <h3>
+                Inbox App
+                <small class="text-muted">Welcome, </small>
+                <small class="text-muted" th:text="${userName}">User Name</small>
+            </h3>
         </header>
 
         <nav>
@@ -78,14 +87,14 @@
                         <dt>Subject</dt>
                         <dd th:text="${email.subject}"></dd>
                         <dt>Body</dt>
-                        <dd th:text="${email.body}"></dd>
+                        <dd class="body-text" th:text="${email.body}"></dd>
                     </dl>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a class="btn btn-primary me-md-2"
-                            th:href="@{'/compose?to='+${email.from}}"
+                            th:href="@{'/compose?to='+${email.from}+'&id='+${email.id}}"
                             type="button">Reply</a>
                         <a class="btn btn-primary" 
-                            th:href="@{'/compose?to='+${toIds}+','+${email.from}}"
+                            th:href="@{'/compose?to='+${toIds}+','+${email.from}+'&id='+${email.id}}"
                             type="button">Reply All</a>
                     </div>
                 </div>

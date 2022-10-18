@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.javabrains.inbox.email.Email;
 import io.javabrains.inbox.email.EmailRepository;
+import io.javabrains.inbox.email.EmailService;
 import io.javabrains.inbox.emaillist.EmailListItem;
 import io.javabrains.inbox.emaillist.EmailListItemKey;
 import io.javabrains.inbox.emaillist.EmailListItemRepository;
@@ -30,6 +31,8 @@ public class EmailViewController {
     private FolderRepository folderRepository;
     @Autowired
     private FolderService folderService;
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private EmailRepository emailRepository;
     @Autowired
@@ -53,6 +56,7 @@ public class EmailViewController {
         model.addAttribute("userFolders", userFolders);
         List<Folder> defaultFolders = folderService.fetchDefaultFolders(userId);
         model.addAttribute("defaultFolders", defaultFolders);
+        model.addAttribute("userName", principal.getAttribute("login"));
 
         Optional<Email> optionalEmail = emailRepository.findById(id);
         if (!optionalEmail.isPresent()) {
@@ -60,6 +64,12 @@ public class EmailViewController {
         }
         Email email = optionalEmail.get();
         String toIds = String.join(", ", email.getTo());
+
+        // check if user is allowed to see the email
+        if (!emailService.doesHaveAccess(email, userId)) {
+            return "redirect:/";
+        }
+
         model.addAttribute("email", optionalEmail.get());
         model.addAttribute("toIds", toIds);
 
